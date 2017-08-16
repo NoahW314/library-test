@@ -1,6 +1,4 @@
-var object = {
-	name:"Mark"
-};/**
+/**
  * Instructions are in the game.
  * Sub to me here.  
  * https://www.khanacademy.org/computer-programming/sub-page/6189930597122048

@@ -866,4 +866,7 @@ var b = [
 "********************",]
 ];
 
-var c = color(255, 0, 0);
+var c = function(ctx){
+	ctx.fillStyle = rgb(255, 0, 0);
+	ctx.fillRect(300, 300, 100, 100);
+};

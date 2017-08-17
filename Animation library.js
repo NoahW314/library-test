@@ -13,12 +13,13 @@ Counter.prototype.count = function () {
 		if(this.rtrn){this.x = this.fr(this.x);}
 		else{this.x = this.f(this.x);}
 		if(this.x >= this.max){
-			if(typeof finish === "function"){
+			if(typeof this.finish === "function"){
 				this.run = false;
-				finish();
+				this.finish();
 			}
-			else if(finish === "restart"){this.x = this.min;}
-			else if(finish === "return"){this.rtrn = true;}
+			else if(this.finish === "restart"){this.x = this.min;}
+			else if(this.finish === "return"){this.rtrn = !this.rtrn;}
+			else if(this.finish === "reset"){this.x = this.min; this.run = false;}
 		}
 	}
 };

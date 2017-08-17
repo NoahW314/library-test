@@ -866,7 +866,13 @@ var b = [
 "********************",]
 ];
 
-var c = function(ctx){
+var c = 0;
+var d = function (ctx) {
 	ctx.fillStyle = rgb(255, 0, 0);
 	ctx.fillRect(300, 300, 100, 100);
 };
+var e = function (x, y, w, h) {
+	fill(0, 255, 0);
+	ellipse(x, y, w, h);
+};
+var f = color(0, 0, 255);

@@ -1,5 +1,7 @@
-var Counter = function (min, max, finish, f, fr) {
-	this.x = min;
+var Counter = function (y, min, max, finish, f, fr) {
+	this.x = 0;
+	this.y = y;
+	this.sy = y;
 	this.min = min;
 	this.max = max;
 	this.finish = finish;
@@ -10,16 +12,22 @@ var Counter = function (min, max, finish, f, fr) {
 };
 Counter.prototype.count = function () {
 	if(this.run){
-		if(this.rtrn){this.x = this.fr(this.x);}
-		else{this.x = this.f(this.x);}
-		if(this.x >= this.max){
+		if(this.rtrn){
+			this.x--;
+			this.y = this.fr(this.x);
+		}
+		else{
+			this.x++;
+			this.y = this.f(this.x);
+		}
+		if(this.y > this.max || this.y < min){
 			if(typeof this.finish === "function"){
 				this.run = false;
 				this.finish();
 			}
-			else if(this.finish === "restart"){this.x = this.min;}
+			else if(this.finish === "restart"){this.x = 0;}
 			else if(this.finish === "return"){this.rtrn = !this.rtrn;}
-			else if(this.finish === "reset"){this.x = this.min; this.run = false;}
+			else if(this.finish === "reset"){this.y = this.sy; this.run = false;}
 		}
 	}
 };

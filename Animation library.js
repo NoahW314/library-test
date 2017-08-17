@@ -10,8 +10,8 @@ var Counter = function (min, max, finish, f, fr) {
 };
 Counter.prototype.count = function () {
 	if(this.run){
-		if(this.rtrn){this.fr(this.x);}
-		else{this.f(this.x);}
+		if(this.rtrn){this.x = this.fr(this.x);}
+		else{this.x = this.f(this.x);}
 		if(this.x >= this.max){
 			if(typeof finish === "function"){
 				this.run = false;

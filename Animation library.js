@@ -1,7 +1,6 @@
-var Counter = function (y, min, max, finish, f, fr) {
-	this.x = 0;
-	this.y = y;
-	this.sy = y;
+var Counter = function (x, min, max, finish, f, fr, maxTimes, finish2) {
+	this.x = x;
+	this.y = 0;
 	this.min = min;
 	this.max = max;
 	this.finish = finish;
@@ -9,16 +8,26 @@ var Counter = function (y, min, max, finish, f, fr) {
 	this.fr = fr;
 	this.run = true;
 	this.rtrn = false;
+	this.times = 0;
+	this.maxTimes = maxTimes;
+	this.fCount = 0;
+	this.finish2 = finish2;
 };
 Counter.prototype.count = function () {
 	if(this.run){
-		if(this.rtrn){
-			this.x--;
-			this.y = this.fr(this.x);
+		if(this.f.length > 0){
+			this.x++;
+			this.y = this.f[this.fCount](this.x);
 		}
 		else{
-			this.x++;
-			this.y = this.f(this.x);
+			if(this.rtrn){
+				this.x--;
+				this.y = this.fr(this.x);
+			}
+			else{
+				this.x++;
+				this.y = this.f(this.x);
+			}
 		}
 		if(this.y > this.max || this.y < min){
 			if(typeof this.finish === "function"){
@@ -26,8 +35,37 @@ Counter.prototype.count = function () {
 				this.finish();
 			}
 			else if(this.finish === "restart"){this.x = 0;}
-			else if(this.finish === "return"){this.rtrn = !this.rtrn;}
-			else if(this.finish === "reset"){this.y = this.sy; this.run = false;}
+			else if(this.finish === "return"){this.rtrn = !this.rtrn; this.times++; if(this.times >= this.maxTimes){this.run = false; this.finish2();}}
+			else if(this.finish === "reset"){this.y = this.f(0); this.run = false;}
+			else if(this.f.length > 0){
+				if(this.fCount === this.f.length-1){
+					if(typeof this.finish === "function"){
+						this.run = false;
+						this.finish();
+					}
+					if(this.finish === "loop"){
+						this.fCount = 0;
+						this.x = this.min[0];
+					}
+				}
+				else{
+					this.fCount++;
+					this.x = this.min[this.fCount];
+					this.fr();
+				}
+			}
 		}
+	}
+};
+
+var Timer = function (start, end, f) {
+	this.x = start;
+	this.goal = end;
+	this.f = f;
+};
+Timer.prototype.time = function () {
+	this.x++;
+	if(this.x >= this.goal){
+		this.f();
 	}
 };

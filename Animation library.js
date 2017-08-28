@@ -15,7 +15,7 @@ var Counter = function (x, min, max, finish, f, fr, maxTimes, finish2) {
 };
 Counter.prototype.count = function () {
 	if(this.run){
-		if(this.f.length > 0){
+		if(typeof this.f === "array"){
 			this.x++;
 			this.y = this.f[this.fCount](this.x);
 		}

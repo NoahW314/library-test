@@ -29,7 +29,7 @@ Counter.prototype.count = function () {
 				this.y = this.f(this.x);
 			}
 		}
-		if(this.y > this.max || this.y < min){
+		if(this.y > this.max || this.y < this.min){
 			if(typeof this.finish === "function"){
 				this.run = false;
 				this.finish();

@@ -1,11 +1,13 @@
-//add multiple finishes for this.finish
-//make this.f defualt for this.fr when finish is "return"
 //add "wait" in combination with other finish(es) to finish
 //add error messages?
 //add stop to finish
 //add number of times to loop through array of finishes
 //add conditions instead of time limits?
 //choice to base min and max on x or y
+//finish action and finish function
+//use finish2 as finish3 if array length is 1
+//don't run undefined functions
+//rename variables
 var Counter = function (x, min, max, finish, f, fr, maxTimes, finish2, finish3) {
 	this.x = x;
 	this.y = 0;
@@ -41,7 +43,12 @@ Counter.prototype.count = function () {
 		else{
 			if(this.rtrn){
 				this.x--;
-				this.y = this.fr(this.x);
+				if(this.fr === undefined){
+					this.y = this.f(this.x);
+				}
+				else{
+					this.y = this.fr(this.x);
+				}
 			}
 			else{
 				this.x++;
@@ -52,6 +59,11 @@ Counter.prototype.count = function () {
 			if(typeof this.finish === "function"){
 				this.run = false;
 				this.finish();
+			}
+			else if(Array.isArray(this.finish)){
+				for(var i = 0; i < this.finish.length; i++){
+					this.finish[i]();
+				}
 			}
 			else if(this.finish === "restart"){this.x = 0;}
 			else if(this.finish === "return"){

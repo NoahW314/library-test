@@ -4,6 +4,6 @@ function run(){
 	document.addEventListener("click", function(){
 		counter++;
 		var clicks = document.getElementById("clicks");
-		clicks.innerHTML(counter);
+		clicks.innerHTML = counter;
 	});
 }

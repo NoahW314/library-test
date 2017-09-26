@@ -39,10 +39,8 @@ var Counter = function (x, min, max, finish, f, fr, maxTimes, finish2, finish3) 
 	}
 };
 Counter.prototype.functionFinish = function () {
-	if(typeof this.finish[this.finishCount] === "function"){
-		this.run = false;
-		this.finish[this.finishCount]();
-	}
+	this.run = false;
+	this.finish[this.finishCount]();
 };
 Counter.prototype.restartFinish = function () {
 	this.x = 0;
@@ -109,44 +107,23 @@ Counter.prototype.count = function () {
 		}
 		if(this.y >= this.max || this.y <= this.min){
 			if(typeof this.finish[this.finishCount] === "function"){
-				this.run = false;
-				this.finish[this.finishCount]();
+				this.functionFinish();
 			}
-			else if(this.finish[this.finishCount] === "restart"){this.x = 0;}
+			else if(this.finish[this.finishCount] === "restart"){
+				this.restartFinish();
+			}
 			else if(this.finish[this.finishCount] === "return"){
-				this.rtrn = !this.rtrn;
-				this.finish3();
-				this.times++;
-				if(this.times >= this.maxTimes){
-					this.run = false;
-					this.finish2();
-				}
+				this.returnFinish();
 			}
-			else if(this.finish[this.finishCount] === "reset"){this.y = this.f(0); this.run = false;}
+			else if(this.finish[this.finishCount] === "reset"){
+				this.resetFinish();
+			}
 			else if(Array.isArray(this.f)){
-				if(this.fCount === this.f.length-1){
-					if(typeof this.finish[this.finishCount] === "function"){
-						this.run = false;
-						this.finish[this.finishCount]();
-					}
-					else if(this.finish[this.finishCount] === "loop"){
-						this.fCount = 0;
-						this.x = this.minArray[0];
-						this.min = this.minArray[0];
-						this.max = this.maxArray[0];
-						this.finish3();
-					}
-					else if(this.finish[this.finishCount] === "stop"){this.run = false;}
-				}
-				else{
-					this.fCount++;
-					this.x = this.minArray[this.fCount];
-					this.min = this.minArray[this.fCount];
-					this.max = this.maxArray[this.fCount];
-					this.finish2();
-				}
+				this.arrayCountersFinish();
 			}
-			else if(this.finish[this.finishCount] === "stop"){this.run = false;}
+			else if(this.finish[this.finishCount] === "stop"){
+				this.stopFinish();
+			}
 			
 			this.finishCount++;
 			if(this.finishCount >= this.finish.length){

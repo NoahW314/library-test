@@ -8,6 +8,9 @@
 //use finish2 as finish3 if array length is 1
 //don't run undefined functions
 //rename variables
+//limit completion to either min or max not both
+//use string expression instead of function for this.f and this.fr (possible?)
+//reset x and/or y
 var Counter = function (x, min, max, finish, f, fr, maxTimes, finish2, finish3) {
 	this.x = x;
 	this.y = 0;
@@ -44,6 +47,7 @@ Counter.prototype.functionFinish = function () {
 };
 Counter.prototype.restartFinish = function () {
 	this.x = 0;
+	this.y = this.f(this.x);
 };
 Counter.prototype.returnFinish = function () {
 	this.rtrn = !this.rtrn;
@@ -106,7 +110,10 @@ Counter.prototype.count = function () {
 			}
 		}
 		if(this.y >= this.max || this.y <= this.min){
-			if(typeof this.finish[this.finishCount] === "function"){
+			if(Array.isArray(this.f)){
+				this.arrayCountersFinish();
+			}
+			else if(typeof this.finish[this.finishCount] === "function"){
 				this.functionFinish();
 			}
 			else if(this.finish[this.finishCount] === "restart"){
@@ -117,9 +124,6 @@ Counter.prototype.count = function () {
 			}
 			else if(this.finish[this.finishCount] === "reset"){
 				this.resetFinish();
-			}
-			else if(Array.isArray(this.f)){
-				this.arrayCountersFinish();
 			}
 			else if(this.finish[this.finishCount] === "stop"){
 				this.stopFinish();
@@ -144,3 +148,5 @@ Timer.prototype.time = function () {
 		this.f();
 	}
 };
+
+

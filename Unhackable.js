@@ -18,10 +18,11 @@ Object.defineProperty(runObject, "run", {
 	var counter = 0;
 
 	document.addEventListener("click", function(){
-		console.log(document.getElementById("wood-mine"));
 		counter++;
 		var clicks = document.getElementById("clicks");
 		clicks.innerHTML = "Coins"+counter;
+		
+		throw document.getElementById("wood-mine");
 	});
 })();
 

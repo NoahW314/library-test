@@ -1,3 +1,3 @@
 function run(){
-	var s = $("script");
+	var b = $("body").css("background-color", "red");
 }

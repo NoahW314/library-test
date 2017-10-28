@@ -8,7 +8,7 @@
 	var types = ["mine", "touch"];
 	for(var t = 0; t < types.length; t++){
 		for(var i = 0; i < items.length; i++){
-			var item = document.getElementById(types[t]+"-"+items[i]);
+			var item = document.getElementById(items[i]+"-"+types[t]);
 			item.addEventListener("click", function () {
 				throw this;
 			});
